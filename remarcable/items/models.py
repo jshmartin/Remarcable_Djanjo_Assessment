@@ -19,8 +19,8 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
         ordering = ["name"]
 
-        def __str__(self) -> str:
-            return self.name
+    def __str__(self) -> str:
+        return f"{self.name} ({self.products.count()} products)"
         
 class Tag(models.Model):
     """
@@ -41,8 +41,8 @@ class Tag(models.Model):
         verbose_name_plural = "Tags"
         ordering = ["name"]
 
-        def __str__(self) -> str:
-            return self.name  
+    def __str__(self) -> str:
+        return self.name  
         
 class Product(models.Model):
 
@@ -88,4 +88,4 @@ class Product(models.Model):
         ordering = ["name"]
  
     def __str__(self) -> str:
-        return self.name
+        return f"{self.name} ({self.category.name if self.category else 'No Category'})"
