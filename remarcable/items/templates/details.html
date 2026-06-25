@@ -8,7 +8,7 @@
     <h1>{{ myitem.name }} </h1>
     
     <h3>Category: {{ myitem.category }}</h3>
-    <h4>Tags:</h4>
+    <h4>Tags:</h4> 
     {% for tag in myitem.tags.all %}
     {{ tag.name }}
     <br>
@@ -16,7 +16,6 @@
         No tags assigned
     {% endfor %}
     <p>Description: {{ myitem.description }}</p>
-    <br>
     <p>Created at: {{ myitem.created_at }}</p>
     <p>Updated at: {{ myitem.updated_at }}</p>
 
