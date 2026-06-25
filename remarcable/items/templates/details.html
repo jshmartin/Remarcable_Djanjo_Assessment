@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html>
+{% extends "master.html" %}
 
-<body>
+{% block title %}
+  Details about {{ product.name }}
+{% endblock %}
 
-<h1>{{ product.name }} </h1>
-  
-<p>Category: {{ product.category }}</p>
-<p>Tag: {{ product.tag }}</p>
-<p>Description: {{ product.description }}</p>
-<p>Created at: {{ product.created_at }}</p>
-<p>Updated at: {{ product.updated_at }}</p>
+{% block content %}
+    <h1>{{ product.name }} </h1>
+    
+    <p>Category: {{ product.category }}</p>
+    <p>Tag: {{ product.tag }}</p>
+    <p>Description: {{ product.description }}</p>
+    <p>Created at: {{ product.created_at }}</p>
+    <p>Updated at: {{ product.updated_at }}</p>
 
-<p>Back to <a href="/members">Members</a></p>
+    <p>Back to <a href="/members">Members</a></p>
 
-</body>
-</html>
+{% endblock %}
