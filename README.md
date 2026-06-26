@@ -33,6 +33,7 @@ This project demonstrates Django proficiency through a product catalogue applica
 ## Populating Sample Data
 
 Use the Django Admin panel to add sample `Categories`, `Tags`, and `Products`. The admin is pre-configured to support all three models.
+- sidenote: this repository already has sample data based on automotive tools and consumables
 
 ## Notes
 
