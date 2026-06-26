@@ -11,8 +11,8 @@
 
     
     <ul>
-        {% for x in myitems %}
-            <li><a href="details/{{ x.id }}">{{ x.name }} </a></li>
+        {% for item in myitems %}
+            <li><a href="details/{{ item.id }}">{{ item.name }} </a></li>
         {% endfor %}
     </ul>
 {% endblock %}

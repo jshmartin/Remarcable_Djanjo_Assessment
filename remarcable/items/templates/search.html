@@ -1,0 +1,100 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}Search Items{% endblock %}
+
+{% block content %}
+<div class="search-container">
+    <h1>Search Items</h1>
+    <p><a href="/">HOME</a></p>
+
+    <form method="GET" action="{% url 'search_results' %}" class="search-form">
+
+        <div class="search-box">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search by description"
+                class="search-input"
+                value="{{ query }}"
+            >
+        </div>
+        <br>
+
+        <select name="category" class="filter-select">
+            <option value="">All Categories</option>
+            {% for category in all_categories %}
+                <option value="{{ category.id }}">
+                    {% if category.id %}selected{% endif %}
+                    {{ category.name }}
+                </option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        
+        <p> Use Ctrl (or Cmd on Mac) to select multiple tags</p>
+        <select name="tags" class="filter-select" multiple>
+            {% for tag in all_tags %}
+                <option value="{{ tag.id }}">
+                    {% if tag.id in selected_tags_ids %}selected{% endif %}
+                    {{ tag.name }}
+                </option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <button type="submit" class="search-button">Search / Filter</button>
+        <br><br>
+        <a href="{% url 'search_results' %}">Clear</a>
+    </form>
+</div>
+
+{% if query or selected_category or selected_tags %}
+    <p>
+        Filtering by:<br>
+        {% if query %}<strong>Description text search: "{{ query }}"</strong>{% endif %}
+        <br>
+        {% if selected_category %}<strong>Category: {{ selected_category.name }}</strong>{% endif %}
+        <br>
+        {% if selected_tags %}<strong>Tags:
+            {% for tag in selected_tags %}
+                {{ tag.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+
+        </strong>{% endif %}
+    </p>
+{% else %}
+    <p>Showing all products.</p>
+{% endif %}
+<hr>
+    
+{% if results %}
+    <div class="results-list">
+        {% for result in results %}
+            <div class="result-card">
+                <h3 class="card-link" href="{% url 'details' result.id %}">
+                    {{ result.name }}
+                </h3>
+                <div class="card-body">
+                    <p>{{ result.description }}</p>
+                    <p class="card-meta">Category: {{ result.category.name }}</p>
+                    <p class="card-meta">
+                        Tags:
+                        {% for tag in result.tags.all %}
+                            {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a class="card-link" href="{% url 'details' result.id %}">View Details</a>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No results found. Try a different search.</p>
+{% endif %}
+
+{% endblock %}
